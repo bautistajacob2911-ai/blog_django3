@@ -1,14 +1,17 @@
 # Mi Blog - Django
 
-Proyecto de blog desarrollado con Django como parte del Módulo 7. Incluye plantillas con herencia, rutas organizadas por app, estilos con archivos estáticos y publicaciones cargadas desde la base de datos mediante el panel de administración.
+Proyecto de blog desarrollado con Django. Incluye plantillas con herencia, rutas organizadas por app, estilos con archivos estáticos, publicaciones con imágenes (CRUD completo), y un sistema de autenticación con registro, login, logout y perfiles de usuario.
 
 ## Funcionalidades
 
 - Página de **Inicio** con portada de bienvenida y las últimas 3 publicaciones.
 - Página de **Publicaciones** con el listado dinámico de los posts publicados, del más reciente al más antiguo.
 - Página **Acerca de** con la reseña del autor y el propósito del sitio.
-- Menú de navegación compartido mediante `base.html`, con la página actual resaltada.
-- **Panel de administración** para crear, editar, filtrar y buscar publicaciones.
+- Menú de navegación compartido mediante `base.html`, con la página actual resaltada y opciones distintas según el usuario esté autenticado o no.
+- **CRUD de posts** con imágenes (crear, editar y eliminar solo para usuarios autenticados).
+- **Registro, inicio y cierre de sesión** de usuarios.
+- **Perfil de usuario** con biografía, sitio web y avatar.
+- **Panel de administración** para crear, editar, filtrar y buscar publicaciones y perfiles.
 - Estilos CSS cargados desde la carpeta `static`.
 
 ## Cambios recientes
@@ -32,10 +35,10 @@ Proyecto de blog desarrollado con Django como parte del Módulo 7. Incluye plant
 - Mensaje de aviso cuando todavía no hay publicaciones (`{% empty %}`).
 
 ### Rediseño visual
-- Nueva portada azul con título centrado y botón de acción.
-- Publicaciones presentadas como **tarjetas** con una franja de color y la fecha destacada.
-- Paleta de colores: azul oscuro, azul, verde agua y coral, definida con variables CSS en `:root` para cambiarla fácilmente.
-- Tipografías de Google Fonts: Playfair Display (títulos) y Nunito Sans (texto), con fuentes de respaldo.
+- Nueva portada con título destacado y botón de acción.
+- Publicaciones presentadas con la fecha destacada.
+- Paleta de colores definida con variables CSS en `:root` para cambiarla fácilmente.
+- Tipografías de Google Fonts: Bricolage Grotesque (títulos) y Source Serif 4 (texto), con fuentes de respaldo.
 - Diseño responsive, enlace para saltar al contenido y foco visible para navegación con teclado.
 
 ## Tecnologías
@@ -43,6 +46,7 @@ Proyecto de blog desarrollado con Django como parte del Módulo 7. Incluye plant
 - Python
 - Django 6.1
 - SQLite
+- Pillow (manejo de imágenes)
 - HTML5 y CSS3
 
 ## Estructura principal
@@ -52,115 +56,9 @@ blog_django2/
 ├── manage.py
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 ├── blog_project2/            # Configuración del proyecto
 │   ├── settings.py
 │   └── urls.py
-└── posts/                    # App principal
-    ├── admin.py
-    ├── apps.py
-    ├── models.py
-    ├── urls.py
-    ├── views.py
-    ├── migrations/
-    │   └── 0001_initial.py
-    ├── templates/posts/      # base.html, inicio.html, lista_posts.html, acerca.html
-    └── static/posts/css/     # estilos.css
-```
-
-## Instalación y uso
-
-1. Clonar el repositorio:
-   ```bash
-   git clone <URL-DEL-REPOSITORIO>
-   cd blog_django2
-   ```
-
-2. Crear y activar el entorno virtual (Windows):
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-
-3. Instalar las dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Aplicar migraciones:
-   ```bash
-   python manage.py migrate
-   ```
-
-5. Crear un superusuario para entrar al panel de administración:
-   ```bash
-   python manage.py createsuperuser
-   ```
-
-6. Iniciar el servidor:
-   ```bash
-   python manage.py runserver
-   ```
-
-7. Abrir en el navegador:
-   - Inicio: http://127.0.0.1:8000/
-   - Publicaciones: http://127.0.0.1:8000/posts/
-   - Acerca de: http://127.0.0.1:8000/acerca/
-   - Panel de administración: http://127.0.0.1:8000/admin/
-
-## Cargar contenido
-
-1. Ingresar a http://127.0.0.1:8000/admin/ con el superusuario.
-2. Entrar en **Posts** y crear al menos 3 publicaciones.
-3. Dejar el estado en **Publicado** para que aparezcan en el sitio. Los posts en **Borrador** o **Archivado** no se muestran.
-
-## Commit del checkpoint
-
-```bash
-git add .
-git commit -m "Checkpoint: Modelos y Admin configurados"
-git push
-```
-## Módulo 10: CRUD de posts con imágenes
-
-### Cómo ejecutar el proyecto
-
-```shell
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
-
-Luego abrir http://127.0.0.1:8000/
-
-### Operaciones CRUD disponibles
-
-| Operación | Ruta |
-|-----------|------|
-| Listar posts publicados | `/posts/` |
-| Ver detalle | `/posts/<id>/` |
-| Crear | `/posts/crear/` |
-| Editar | `/posts/<id>/editar/` |
-| Eliminar (con confirmación) | `/posts/<id>/eliminar/` |
-
-### Manejo de imágenes
-
-- El modelo `Post` tiene un campo `imagen = models.ImageField(upload_to='posts/', null=True, blank=True)`, por lo que la imagen es opcional.
-- En `settings.py` se configuraron `MEDIA_URL = '/media/'` y `MEDIA_ROOT = BASE_DIR / 'media'`.
-- En `urls.py` del proyecto se sirven los archivos media durante el desarrollo (`DEBUG = True`) con `static()`.
-- Las vistas de crear y editar procesan los archivos con `PostForm(request.POST, request.FILES)`.
-- El formulario (`post_form.html`) usa `enctype="multipart/form-data"`.
-- Los templates muestran la imagen solo si existe (`{% if post.imagen %}`), así que un post sin imagen no rompe la página.
-- Las imágenes subidas se guardan en la carpeta `media/posts/`.
-
-### Dependencia nueva
-
-- **Pillow**: necesaria para usar `ImageField`. Se instala con `pip install Pillow` y quedó registrada en `requirements.txt`.
-
-### Cómo probar la carga de imágenes
-
-1. Ir a `/posts/crear/`.
-2. Completar título, contenido, autor y estado (elegir «Publicado» para que aparezca en el listado).
-3. Seleccionar un archivo de imagen en el campo «Imagen» y guardar.
-4. Verificar que la imagen se vea en el detalle y en el listado.
-5. Entrar a «Editar» y cambiar la imagen para comprobar que se actualiza.
-6. Revisar que el archivo exista dentro de `media/posts/`.
+├── media/                    # Archivos subidos por los usuarios
+│   ├── posts/
