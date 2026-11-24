@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm
 from .models import Post
@@ -24,6 +25,7 @@ def detalle_post(request, pk):
     return render(request, 'posts/detalle_post.html', {'post': post})
 
 
+@login_required
 def crear_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -38,6 +40,7 @@ def crear_post(request):
     })
 
 
+@login_required
 def editar_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -54,6 +57,7 @@ def editar_post(request, pk):
     })
 
 
+@login_required
 def eliminar_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':

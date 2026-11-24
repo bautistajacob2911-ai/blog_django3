@@ -17,10 +17,15 @@ db.sqlite3-journal
 
 # Archivos media subidos durante las pruebas
 # (se ignora el contenido, pero se mantiene la carpeta media/posts/)
+# Archivos media subidos durante las pruebas
+# (se ignora el contenido, pero se mantienen las carpetas media/posts/ y media/avatares/)
 media/*
 !media/posts/
 media/posts/*
 !media/posts/.gitkeep
+!media/avatares/
+media/avatares/*
+!media/avatares/.gitkeep
 
 # Editor / sistema operativo
 .vscode/

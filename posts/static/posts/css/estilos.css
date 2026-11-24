@@ -432,3 +432,236 @@ a:hover {
 
 .post-acciones { margin-top: 1rem; }
 .formulario p { margin-bottom: 1rem; }
+
+/* ==========================================================
+   Cuentas: menú de usuario, mensajes, formularios y perfil
+   ========================================================== */
+
+/* ---------- Menú: usuario y cerrar sesión ---------- */
+
+.menu {
+    flex-wrap: wrap;
+    gap: 0.25rem 1.75rem;
+}
+
+.menu form {
+    margin: 0;
+    display: flex;
+}
+
+.menu-usuario,
+.menu-boton {
+    font-family: var(--fuente-titulos);
+    font-size: 1rem;
+    padding: 1.2rem 0 1.05rem;
+    border-bottom: 3px solid transparent;
+}
+
+.menu-usuario {
+    font-weight: 700;
+    color: var(--petroleo);
+}
+
+.menu-boton {
+    font-weight: 500;
+    color: var(--texto-suave);
+    background: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    cursor: pointer;
+}
+
+.menu-boton:hover {
+    color: var(--petroleo);
+    border-bottom-color: var(--linea);
+}
+
+/* ---------- Mensajes (messages framework) ---------- */
+
+.mensajes {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+}
+
+.mensajes li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-left: 4px solid var(--petroleo-suave);
+    border-radius: 4px;
+    font-family: var(--fuente-titulos);
+    font-size: 1rem;
+}
+
+.mensajes li.success { border-left-color: #2e7d32; }
+.mensajes li.error   { border-left-color: #b3261e; }
+.mensajes li.warning { border-left-color: var(--azafran); }
+
+/* ---------- Formularios ---------- */
+
+.formulario {
+    max-width: var(--ancho-lectura);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+    padding: 1.5rem;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: var(--fuente-titulos);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--petroleo);
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="url"],
+.formulario textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--linea);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+    font: inherit;
+    font-size: 1rem;
+}
+
+.formulario input[type="file"] {
+    font-size: 1rem;
+    max-width: 100%;
+}
+
+.helptext {
+    display: block;
+    margin-top: 0.25rem;
+    font-family: var(--fuente-titulos);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--texto-suave);
+}
+
+.helptext ul {
+    margin: 0.25rem 0 0;
+    padding-left: 1.25rem;
+}
+
+.errorlist {
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-family: var(--fuente-titulos);
+    font-size: 0.95rem;
+    color: #b3261e;
+}
+
+.formulario-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.enlace-aparte {
+    margin-top: 1.5rem;
+    font-family: var(--fuente-titulos);
+    font-size: 1rem;
+    color: var(--texto-suave);
+}
+
+/* Botón principal (color azafrán) */
+.boton-solido {
+    display: inline-block;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.7rem 1.3rem;
+    background: var(--azafran);
+    color: var(--petroleo);
+    border: 2px solid var(--azafran);
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.boton-solido:hover {
+    background: var(--petroleo);
+    border-color: var(--petroleo);
+    color: #fff;
+}
+
+/* ---------- Perfil ---------- */
+
+.perfil {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.avatar-img {
+    width: 9rem;
+    height: 9rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--linea);
+}
+
+.perfil .avatar {
+    width: 9rem;
+    height: 9rem;
+    font-size: 4.5rem;
+    margin-bottom: 0;
+}
+
+.perfil-dato {
+    margin: 0 0 0.9rem;
+    max-width: var(--ancho-lectura);
+}
+
+.perfil-etiqueta {
+    display: block;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--texto-suave);
+}
+
+.perfil-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.avatar-actual {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--fuente-titulos);
+    color: var(--texto-suave);
+}
+
+.avatar-actual .avatar-img {
+    width: 5rem;
+    height: 5rem;
+}
+
+@media (max-width: 40rem) {
+    .perfil {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+}

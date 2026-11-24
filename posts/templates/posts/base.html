@@ -25,17 +25,42 @@
                    {% if request.resolver_match.url_name == 'lista_posts' %}aria-current="page"{% endif %}>Publicaciones</a>
                 <a href="{% url 'posts:acerca' %}"
                    {% if request.resolver_match.url_name == 'acerca' %}aria-current="page"{% endif %}>Acerca de</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'posts:crear_post' %}"
+                       {% if request.resolver_match.url_name == 'crear_post' %}aria-current="page"{% endif %}>Crear post</a>
+                    <a href="{% url 'accounts:perfil' %}"
+                       {% if request.resolver_match.url_name == 'perfil' %}aria-current="page"{% endif %}>Mi perfil</a>
+                    <span class="menu-usuario">Hola, {{ user.username }}</span>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="menu-boton">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}"
+                       {% if request.resolver_match.url_name == 'login' %}aria-current="page"{% endif %}>Iniciar sesión</a>
+                    <a href="{% url 'accounts:registro' %}"
+                       {% if request.resolver_match.url_name == 'registro' %}aria-current="page"{% endif %}>Registrarse</a>
+                {% endif %}
             </nav>
         </div>
     </header>
 
     <main id="contenido" class="contenedor">
+        {% if messages %}
+            <ul class="mensajes">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% block contenido %}{% endblock %}
     </main>
 
     <footer class="pie">
         <div class="pie-interior">
-            <p>Mi Blog · Proyecto Django, Módulo 7</p>
+            <p>Mi Blog · Proyecto Django, Módulo 11</p>
         </div>
     </footer>
 </body>

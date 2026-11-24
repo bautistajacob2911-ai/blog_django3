@@ -1,0 +1,18 @@
+{% extends 'posts/base.html' %}
+
+{% block titulo %}Registro · Mi Blog{% endblock %}
+
+{% block contenido %}
+<h1 class="seccion-titulo">Crear cuenta</h1>
+<p class="seccion-intro">Registrate para poder publicar en el blog.</p>
+
+<form method="post" class="formulario">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="formulario-acciones">
+        <button type="submit" class="boton-solido">Registrarme</button>
+    </div>
+</form>
+
+<p class="enlace-aparte">¿Ya tenés cuenta? <a href="{% url 'accounts:login' %}">Iniciá sesión</a></p>
+{% endblock %}
